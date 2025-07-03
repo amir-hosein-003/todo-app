@@ -4,8 +4,8 @@ import { deleteTodo, updateTodo } from "@/lib/actions/formActions";
 import { formatDate } from "@/lib/formatData";
 import { Todo } from "@/types/TodoTypes";
 import { Icon } from "@iconify/react";
-import {useEffect, useState } from "react";
-import toast from "react-hot-toast";
+import { useState } from "react";
+
 
 type Props = {
     todos: Todo;
@@ -24,44 +24,27 @@ const TodoCard = ({ todos, onDelete }: Props) => {
     const [completed, setCompleted] = useState(todos.completed);
     const [updateMode, setUpdateMode] = useState(false);
     const [title, setTitle] = useState(todos.title);
-    const [updatedRes, setUpdatedRes] = useState({ success: false, message: ""});
-    const [deletedRes, setDeletedRes] = useState({ success: false, message: ""});
 
     const deleteTodoHandler = async (id: string) => {
         const res = await deleteTodo(id);
-        setDeletedRes(res);
         if (res.success) {
             onDelete(id);
         }
-    }
-    
-    const submitHandler = async (id: string) => {
-        // e.preventDefault();
-        const data: UpdateOPT = {id, title, category: todos.category, completed};
-        // await updateTodo(data);
-        const res = await updateTodo(data);
-        setUpdatedRes(res);
-        setUpdateMode(!updateMode);
     }
     
     const updateTodoHandler = async (id: string) => {
         setCompleted(!completed);
         console.log(completed)
         const data: UpdateOPT = {id, title, category: todos.category, completed: !completed};
-        // await updateTodo(data);
-        const res = await updateTodo(data);
-        setUpdatedRes(res);
+        updateTodo(data);
     }
-
-    useEffect(() => {
-        if (updatedRes.success) toast.success(updatedRes.message);
-        if (!updatedRes.success) toast.error(updatedRes.message);
-    }, [updatedRes]);
-
-    useEffect(() => {
-        if (deletedRes.success) toast.success(deletedRes.message);
-        if (!deletedRes.success) toast.error(deletedRes.message);
-    }, [deletedRes]);
+    
+    const submitHandler = async (id: string) => {
+        const data: UpdateOPT = {id, title, category: todos.category, completed};
+        await updateTodo(data);
+        setUpdateMode(!updateMode);
+    }
+    
 
     return (
       <div className="flex items-center justify-between border rounded-md py-4 px-2">
@@ -87,12 +70,10 @@ const TodoCard = ({ todos, onDelete }: Props) => {
                     <p className="text-success mr-4">
                         completed
                     </p>
-                ) : (updateMode ? (
-                        <></>
-                    ) : (
+                ) : (!updateMode &&
                         <Icon onClick={() => setUpdateMode(!updateMode)} className="cursor-pointer" icon="jam:pencil" width="24" height="24" />
                     )
-                )}
+                }
                 <Icon onClick={() => deleteTodoHandler(todos._id)} className="cursor-pointer text-red-500" icon="mingcute:delete-line" width="24" height="24" />
             </div>
       </div>

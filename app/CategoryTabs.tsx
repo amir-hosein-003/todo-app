@@ -1,7 +1,7 @@
 "use client"
 
-import { Tabs, TabsContent, TabsList, TabsTrigger } from './ui/tabs'
-import TodoCard from './TodoCard';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import TodoCard from '@/components/TodoCard';
 import { Todo } from '@/types/TodoTypes';
 import { useEffect, useState } from 'react';
 
@@ -10,7 +10,7 @@ const CategoryTabs = ({ todos: initialTodos }: { todos: Todo[] }) => {
     const [todos, setTodos] = useState(initialTodos);
     
     useEffect(() => {
-        setTodos(initialTodos)
+        setTodos(initialTodos);
     }, [initialTodos]);
     const filterByCategory: (category: string) => Todo[] = (category: string): Todo[] => todos.filter((todo: Todo) => todo.category === category);
 

@@ -2,9 +2,8 @@
 
 import React, { useActionState, useEffect, useState } from "react";
 import { Todo } from "@/types/TodoTypes";
-import CategoryTabs from "@/components/CategoryTabs";
+import CategoryTabs from "./CategoryTabs";
 import { addTodo } from "@/lib/actions/formActions";
-import toast from "react-hot-toast";
 
 
 const initialState = {
@@ -31,11 +30,6 @@ const TodoFormAction = () => {
     fetchData();
   }, [formState]);
   
-  useEffect(() => {
-    if (formState.success) toast.success("successfully");
-    if (!formState.success) toast.error("error");
-
-  }, [formState.success]);
 
   return (
     <section className="max-w-4xl mx-auto border-2 rounded-xl py-8 my-8">
