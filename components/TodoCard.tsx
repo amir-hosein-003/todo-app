@@ -4,7 +4,8 @@ import { deleteTodo, updateTodo } from "@/lib/actions/formActions"
 import { formatDate } from "@/lib/formatData"
 import { Todo } from "@/types/TodoTypes"
 import { Icon } from "@iconify/react"
-import { useState } from "react"
+import { useState, useTransition } from "react"
+import toast from "react-hot-toast"
 
 type Props = {
     todos: Todo
@@ -19,27 +20,45 @@ export type UpdateOPT = {
 }
 
 const TodoCard = ({ todos, onDelete }: Props) => {
+    const [isPending, startTransition] = useTransition()
+
     const [completed, setCompleted] = useState(todos.completed)
     const [updateMode, setUpdateMode] = useState(false)
     const [title, setTitle] = useState(todos.title)
 
-    const deleteTodoHandler = async (id: string) => {
-        const res = await deleteTodo(id)
-        if (res.success) {
-            onDelete(id)
-        }
+    const deleteTodoHandler = (id: string) => {
+        startTransition(async () => {
+            const res = await deleteTodo(id)
+            if (isPending) toast.loading("loading...")
+            if (res.success) {
+                toast.success(res.message)
+            } else {
+                toast.error(res.message)
+            }
+        })
+        onDelete(id)
     }
 
-    const updateTodoHandler = async (id: string) => {
-        setCompleted(!completed)
-        console.log(completed)
+    const updateTodoHandler = (id: string) => {
+        const newCompleted = !completed
+        setCompleted(newCompleted)
+
         const data: UpdateOPT = {
             id,
             title,
             category: todos.category,
-            completed: !completed,
+            completed: newCompleted,
         }
-        updateTodo(data)
+
+        startTransition(async () => {
+            const res = await updateTodo(data)
+            if (isPending) toast.loading("loading...")
+            if (res.success) {
+                toast.success(res.message)
+            } else {
+                toast.error(res.message)
+            }
+        })
     }
 
     const submitHandler = async (id: string) => {
@@ -49,7 +68,15 @@ const TodoCard = ({ todos, onDelete }: Props) => {
             category: todos.category,
             completed,
         }
-        await updateTodo(data)
+        startTransition(async () => {
+            const res = await updateTodo(data)
+            if (isPending) toast.loading("loading...")
+            if (res.success) {
+                toast.success(res.message)
+            } else {
+                toast.error(res.message)
+            }
+        })
         setUpdateMode(!updateMode)
     }
 
@@ -63,7 +90,10 @@ const TodoCard = ({ todos, onDelete }: Props) => {
                 />
                 {updateMode ? (
                     <form
-                        onSubmit={() => submitHandler(todos._id)}
+                        onSubmit={(e) => {
+                            e.preventDefault()
+                            submitHandler(todos._id)
+                        }}
                         className="w-2xl flex items-center justify-between"
                     >
                         <input

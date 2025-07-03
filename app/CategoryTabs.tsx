@@ -5,7 +5,13 @@ import TodoCard from "@/components/TodoCard"
 import { Todo } from "@/types/TodoTypes"
 import { useEffect, useState } from "react"
 
-const CategoryTabs = ({ todos: initialTodos }: { todos: Todo[] }) => {
+const CategoryTabs = ({
+    todos: initialTodos,
+    loading,
+}: {
+    todos: Todo[]
+    loading: boolean
+}) => {
     const [todos, setTodos] = useState(initialTodos)
 
     useEffect(() => {
@@ -57,20 +63,23 @@ const CategoryTabs = ({ todos: initialTodos }: { todos: Todo[] }) => {
                         </TabsTrigger>
                     ))}
                 </TabsList>
-
-                {categories.map(({ key, data }) => (
-                    <TabsContent key={key} value={key}>
-                        <div className="flex flex-col gap-2">
-                            {data.map((todo) => (
-                                <TodoCard
-                                    key={todo._id}
-                                    todos={todo}
-                                    onDelete={handleDelete}
-                                />
-                            ))}
-                        </div>
-                    </TabsContent>
-                ))}
+                {loading ? (
+                    <div className="w-10 h-10 mx-auto border-4 border-r-black border-b-black rounded-full animate-spin mt-6" />
+                ) : (
+                    categories.map(({ key, data }) => (
+                        <TabsContent key={key} value={key}>
+                            <div className="flex flex-col gap-2">
+                                {data.map((todo) => (
+                                    <TodoCard
+                                        key={todo._id}
+                                        todos={todo}
+                                        onDelete={handleDelete}
+                                    />
+                                ))}
+                            </div>
+                        </TabsContent>
+                    ))
+                )}
             </Tabs>
         </div>
     )

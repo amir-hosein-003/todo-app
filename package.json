@@ -10,6 +10,8 @@
         "server": "json-server --watch ./db.json --port 3001"
     },
     "dependencies": {
+        "@hookform/resolvers": "^5.1.1",
+        "@radix-ui/react-select": "^2.2.5",
         "@radix-ui/react-tabs": "^1.1.12",
         "axios": "^1.10.0",
         "class-variance-authority": "^0.7.1",
@@ -20,8 +22,10 @@
         "next": "15.3.3",
         "react": "^19.0.0",
         "react-dom": "^19.0.0",
+        "react-hook-form": "^7.59.0",
         "react-hot-toast": "^2.5.2",
-        "tailwind-merge": "^3.3.0"
+        "tailwind-merge": "^3.3.0",
+        "zod": "^3.25.71"
     },
     "devDependencies": {
         "@eslint/eslintrc": "^3",

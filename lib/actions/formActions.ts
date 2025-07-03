@@ -15,25 +15,19 @@ export async function addTodo(_prevState: PrevState, formData: FormData) {
 
     try {
         await connectDB()
-
         if (!title) {
             return {
                 success: false,
                 message: "Title is required",
-                errors: {
-                    title: "Title is required",
-                },
             }
         }
-
-        const newTodo = await Todo.create({ title, category })
-        console.log(newTodo)
-        return { success: true, message: "Todo added successfully", errors: {} }
+        await Todo.create({ title, category })
+        return { success: true, message: "Todo added successfully" }
     } catch (err) {
+        console.log("Error", err)
         return {
             success: false,
             message: "error in added Todo",
-            errors: { err },
         }
     }
 }
@@ -60,8 +54,6 @@ export async function deleteTodo(id: string) {
 
 export async function updateTodo(formData: UpdateOPT) {
     const { id, title, completed } = formData
-
-    console.log(id, title, completed)
 
     try {
         await connectDB()
