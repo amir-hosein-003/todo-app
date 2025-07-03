@@ -1,5 +1,5 @@
 // types/global.d.ts
-import type { Mongoose } from 'mongoose'
+import type { Mongoose } from "mongoose"
 
 declare global {
     var mongoose: {

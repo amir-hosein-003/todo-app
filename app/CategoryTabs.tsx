@@ -1,9 +1,9 @@
-'use client'
+"use client"
 
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import TodoCard from '@/components/TodoCard'
-import { Todo } from '@/types/TodoTypes'
-import { useEffect, useState } from 'react'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import TodoCard from "@/components/TodoCard"
+import { Todo } from "@/types/TodoTypes"
+import { useEffect, useState } from "react"
 
 const CategoryTabs = ({ todos: initialTodos }: { todos: Todo[] }) => {
     const [todos, setTodos] = useState(initialTodos)
@@ -17,29 +17,29 @@ const CategoryTabs = ({ todos: initialTodos }: { todos: Todo[] }) => {
 
     const categories = [
         {
-            key: 'all',
-            label: 'All',
+            key: "all",
+            label: "All",
             data: todos,
         },
         {
-            key: 'work',
-            label: 'Work',
-            data: filterByCategory('work'),
+            key: "work",
+            label: "Work",
+            data: filterByCategory("work"),
         },
         {
-            key: 'education',
-            label: 'Education',
-            data: filterByCategory('education'),
+            key: "education",
+            label: "Education",
+            data: filterByCategory("education"),
         },
         {
-            key: 'personal',
-            label: 'Personal',
-            data: filterByCategory('personal'),
+            key: "personal",
+            label: "Personal",
+            data: filterByCategory("personal"),
         },
         {
-            key: 'study',
-            label: 'Study',
-            data: filterByCategory('study'),
+            key: "study",
+            label: "Study",
+            data: filterByCategory("study"),
         },
     ]
 

@@ -1,8 +1,8 @@
-'use server'
+"use server"
 
-import connectDB from '@/lib/mongoDb'
-import Todo from '@/lib/models/Todo'
-import { UpdateOPT } from '@/components/TodoCard'
+import connectDB from "@/lib/mongoDb"
+import Todo from "@/lib/models/Todo"
+import { UpdateOPT } from "@/components/TodoCard"
 
 type PrevState = {
     success: boolean
@@ -10,8 +10,8 @@ type PrevState = {
 }
 
 export async function addTodo(_prevState: PrevState, formData: FormData) {
-    const title = formData.get('title')
-    const category = formData.get('category')
+    const title = formData.get("title")
+    const category = formData.get("category")
 
     try {
         await connectDB()
@@ -19,20 +19,20 @@ export async function addTodo(_prevState: PrevState, formData: FormData) {
         if (!title) {
             return {
                 success: false,
-                message: 'Title is required',
+                message: "Title is required",
                 errors: {
-                    title: 'Title is required',
+                    title: "Title is required",
                 },
             }
         }
 
         const newTodo = await Todo.create({ title, category })
         console.log(newTodo)
-        return { success: true, message: 'Todo added successfully', errors: {} }
+        return { success: true, message: "Todo added successfully", errors: {} }
     } catch (err) {
         return {
             success: false,
-            message: 'error in added Todo',
+            message: "error in added Todo",
             errors: { err },
         }
     }
@@ -43,17 +43,17 @@ export async function deleteTodo(id: string) {
         await connectDB()
 
         const deletedTodo = await Todo.findByIdAndDelete(id)
-        if (!deletedTodo) return { success: false, message: 'Todo not found' }
+        if (!deletedTodo) return { success: false, message: "Todo not found" }
 
         return {
             success: true,
-            message: 'Todo deleted successfully',
+            message: "Todo deleted successfully",
         }
     } catch (error) {
-        console.log('Error in deleted Todo', error)
+        console.log("Error in deleted Todo", error)
         return {
             success: false,
-            message: 'Error in deleted Todo',
+            message: "Error in deleted Todo",
         }
     }
 }
@@ -68,13 +68,13 @@ export async function updateTodo(formData: UpdateOPT) {
         await Todo.findByIdAndUpdate(id, { title, completed })
         return {
             success: true,
-            message: 'Todo updated successfully',
+            message: "Todo updated successfully",
         }
     } catch (error) {
-        console.log('Error in updated Todo', error)
+        console.log("Error in updated Todo", error)
         return {
             success: false,
-            message: 'Error in updated Todo',
+            message: "Error in updated Todo",
         }
     }
 }

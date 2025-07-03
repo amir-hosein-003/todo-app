@@ -1,10 +1,10 @@
-'use client'
+"use client"
 
-import { deleteTodo, updateTodo } from '@/lib/actions/formActions'
-import { formatDate } from '@/lib/formatData'
-import { Todo } from '@/types/TodoTypes'
-import { Icon } from '@iconify/react'
-import { useState } from 'react'
+import { deleteTodo, updateTodo } from "@/lib/actions/formActions"
+import { formatDate } from "@/lib/formatData"
+import { Todo } from "@/types/TodoTypes"
+import { Icon } from "@iconify/react"
+import { useState } from "react"
 
 type Props = {
     todos: Todo
@@ -85,7 +85,7 @@ const TodoCard = ({ todos, onDelete }: Props) => {
                 ) : (
                     <div className="w-xl grid grid-cols-3">
                         <p
-                            className={`${completed && 'text-muted-foreground line-through'}`}
+                            className={`${completed && "text-muted-foreground line-through"}`}
                         >
                             {title}
                         </p>

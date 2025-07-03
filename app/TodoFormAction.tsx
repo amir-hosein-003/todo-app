@@ -1,13 +1,13 @@
-'use client'
+"use client"
 
-import React, { useActionState, useEffect, useState } from 'react'
-import { Todo } from '@/types/TodoTypes'
-import CategoryTabs from './CategoryTabs'
-import { addTodo } from '@/lib/actions/formActions'
+import React, { useActionState, useEffect, useState } from "react"
+import { Todo } from "@/types/TodoTypes"
+import CategoryTabs from "./CategoryTabs"
+import { addTodo } from "@/lib/actions/formActions"
 
 const initialState = {
     success: false,
-    message: '',
+    message: "",
     errors: {},
 }
 
@@ -19,7 +19,7 @@ const TodoFormAction = () => {
 
     useEffect(() => {
         const fetchData = async () => {
-            const res = await fetch('/api/todos')
+            const res = await fetch("/api/todos")
             const data = await res.json()
             setTodos(data)
             setLoading(false)
