@@ -2,13 +2,13 @@
 
 import { deleteTodo, updateTodo } from "@/lib/actions/formActions"
 import { formatDate } from "@/lib/formatData"
-import { Todo } from "@/types/TodoTypes"
+import { TodoType } from "@/types/TodoTypes"
 import { Icon } from "@iconify/react"
 import { useState, useTransition } from "react"
 import toast from "react-hot-toast"
 
 type Props = {
-    todos: Todo
+    todos: TodoType
     onDelete: (id: string) => void
 }
 

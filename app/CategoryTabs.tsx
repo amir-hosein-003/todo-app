@@ -2,14 +2,14 @@
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import TodoCard from "@/components/TodoCard"
-import { Todo } from "@/types/TodoTypes"
+import { TodoType } from "@/types/TodoTypes"
 import { useEffect, useState } from "react"
 
 const CategoryTabs = ({
     todos: initialTodos,
     loading,
 }: {
-    todos: Todo[]
+    todos: TodoType[]
     loading: boolean
 }) => {
     const [todos, setTodos] = useState(initialTodos)
@@ -17,9 +17,10 @@ const CategoryTabs = ({
     useEffect(() => {
         setTodos(initialTodos)
     }, [initialTodos])
-    const filterByCategory: (category: string) => Todo[] = (
+    
+    const filterByCategory: (category: string) => TodoType[] = (
         category: string
-    ): Todo[] => todos.filter((todo: Todo) => todo.category === category)
+    ): TodoType[] => todos.filter((todo: TodoType) => todo.category === category)
 
     const categories = [
         {

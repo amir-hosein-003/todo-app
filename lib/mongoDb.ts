@@ -1,6 +1,7 @@
 import mongoose from "mongoose"
 
-const MONGODB_URI = process.env.DATABASE_URI!
+// const MONGODB_URI = process.env.DATABASE_URI!
+const MONGODB_URI = "mongodb://localhost:27017/TodoListApp-nextjs"
 
 if (!MONGODB_URI) {
     throw new Error("Please define the MONGODB_URI environment variable")

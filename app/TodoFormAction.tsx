@@ -14,7 +14,7 @@ import React, {
     useState,
 } from "react"
 import { Controller, useForm } from "react-hook-form"
-import { Todo } from "@/types/TodoTypes"
+import { TodoType } from "@/types/TodoTypes"
 import CategoryTabs from "./CategoryTabs"
 import { addTodo } from "@/lib/actions/formActions"
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -48,7 +48,7 @@ const TodoFormAction = () => {
     })
 
     const [loading, setLoading] = useState(true)
-    const [todos, setTodos] = useState<Todo[]>([])
+    const [todos, setTodos] = useState<TodoType[]>([])
 
     useEffect(() => {
         const fetchData = async () => {
